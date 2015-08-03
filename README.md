@@ -12,7 +12,7 @@ If you do not have Gosu you should install it before running (you don't need to 
 ###**How to play**
 This is a copy of "Conway's Game of Life", if you want more info on this game you can find it here https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
-The game starts paused, you can click anywhere in the screen to create or kill cells. Press space bar to unpause/pause again.
+The game starts paused, you can click anywhere in the screen to create or kill cells. Press spacebar to unpause/pause again.
 
 
 ###**Rules**

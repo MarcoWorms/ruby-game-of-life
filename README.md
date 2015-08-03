@@ -1,5 +1,5 @@
 ###**Game of Life**
-To run on windows just open the windows bin :)
+To run on windows just open "Game of Life.exe"
 
 To run on ruby just do the following:
 

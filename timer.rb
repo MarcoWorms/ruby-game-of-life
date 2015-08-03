@@ -1,7 +1,7 @@
 class Timer
     def initialize(interval)
         @interval = interval
-        @last_recorded_second = 0
+        @last_recorded_second = 1
     end
 
     def time_for_next_generation?

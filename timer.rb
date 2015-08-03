@@ -1,19 +1,19 @@
 class Timer
     def initialize(interval)
         @interval = interval
-        @last_recorded_second = 1
+        @last_recorded_time = 0
     end
 
     def time_for_next_generation?
 
-        second = Gosu::milliseconds/1000
+        time = Gosu::milliseconds / 100
 
-        its_time = (second % @interval == 0)
+        its_time = (time % @interval == 0)
 
-        can_tick = (second != @last_recorded_second)
+        can_tick = (time != @last_recorded_time)
 
         if its_time && can_tick
-            @last_recorded_second = second
+            @last_recorded_time = time
             return true
         else
             return false

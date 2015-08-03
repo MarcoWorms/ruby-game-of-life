@@ -1,9 +1,10 @@
 class Cell
 
-	attr_accessor :is_alive
+	attr_accessor :is_alive, :is_alive_again
 
 	def initialize
 		@is_alive = false
+        @is_alive_again = false
 		@size_in_square_pixels = 10
 		@alive_image = Gosu::Image.new("live_cell.png")
 		@dead_image = Gosu::Image.new("dead_cell.png")

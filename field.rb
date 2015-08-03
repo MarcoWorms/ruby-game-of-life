@@ -10,7 +10,7 @@ class Field
         @field = Array.new(@width) { Array.new(@height) { Cell.new } }
     end
 
-    def start_next_generation
+    def evaluate_next_generation
     	for x in 0..@size_x
     		for y in 0..@size_y
     			cell = @field[x][y]
@@ -18,16 +18,16 @@ class Field
     			live_neighbors = get_live_neighbors(x, y)
 
     			if cell.is_alive
-	    			if live_neighbors == 1
-	    				cell.is_alive = false
+	    			if live_neighbors <= 1
+	    				cell.is_alive_again = false
 	    			elsif live_neighbors == 2 || live_neighbors == 3
-	    				cell.is_alive = true
+	    				cell.is_alive_again = true
 	    			elsif live_neighbors > 3
-	    				cell.is_alive = false
+	    				cell.is_alive_again = false
 	    			end
 	    		else
 	    			if live_neighbors == 3
-	    				cell.is_alive = true
+	    				cell.is_alive_again = true
 	    			end
 	    		end
 
@@ -35,8 +35,17 @@ class Field
     	end
     end
 
+    def update_generation
+        for x in 0..@size_x
+            for y in 0..@size_y
+                cell = @field[x][y]
+                cell.is_alive = cell.is_alive_again
+            end
+        end
+    end
+
     def get_live_neighbors(x, y)
-		live_neighbors = 0  	
+		live_neighbors = 0
 		for new_x in -1..1
 			for new_y in -1..1
 				begin
@@ -52,6 +61,18 @@ class Field
 			end
 		end
 		return live_neighbors
+    end
+
+    def click(mouse_x, mouse_y)
+        grid_x = mouse_x / 10 #cell size
+        grid_y = mouse_y / 10
+        cell_clicked = @field[grid_x][grid_y]
+        if cell_clicked.is_alive
+            cell_clicked.is_alive = false
+        else
+            cell_clicked.is_alive = true
+        end
+
     end
 
     def draw

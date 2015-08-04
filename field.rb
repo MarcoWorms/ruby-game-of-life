@@ -7,7 +7,9 @@ class Field
     	@height = height
     	@size_x = @width - 1
     	@size_y = @height - 1
-        @field = Array.new(@width) { Array.new(@height) { Cell.new } }
+        cell_alive_image = Gosu::Image.new("live_cell.png")
+        cell_dead_image = Gosu::Image.new("dead_cell.png")
+        @field = Array.new(@width) { Array.new(@height) { Cell.new(cell_alive_image, cell_dead_image) } }
     end
 
     def evaluate_next_generation

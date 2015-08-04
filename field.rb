@@ -48,16 +48,17 @@ class Field
 		live_neighbors = 0
 		for new_x in -1..1
 			for new_y in -1..1
-				begin
-					if @field[new_x + x][new_y + y].is_alive
+                neigh_x = new_x + x
+                neigh_y = new_y + y
+                valid_position = (neigh_x >= 0 && neigh_x < 50 && neigh_y >= 0 && neigh_y < 50)
+                if valid_position
+					if @field[neigh_x][neigh_y].is_alive
 						if new_x == 0 && new_y == 0
 							next
 						end
 						live_neighbors += 1
 					end
-				rescue
-					next
-				end
+                end
 			end
 		end
 		return live_neighbors

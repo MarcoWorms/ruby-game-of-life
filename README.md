@@ -5,7 +5,7 @@ To run on ruby just do the following:
 
  - ruby main.rb
 
-If you do not have Gosu you should install it before running (you don't need to do this if you use the windows bin)
+If you do not have Gosu you should install it before running (you don't need to do this if you use the windows .exe)
 
  - gem install gosu
 

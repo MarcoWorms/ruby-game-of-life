@@ -72,10 +72,12 @@ class Field
         cell_clicked = @field[grid_x][grid_y]
         if cell_clicked.is_alive
             cell_clicked.is_alive = false
+            cell_clicked.is_alive_again = false
+
         else
             cell_clicked.is_alive = true
+            cell_clicked.is_alive_again = true
         end
-
     end
 
     def draw

@@ -1,6 +1,6 @@
 class Timer
     def initialize(interval)
-        @interval = interval
+        @interval = interval * 10
         @last_recorded_time = 0
     end
 

@@ -52,7 +52,7 @@ class Field
 			for new_y in -1..1
                 neigh_x = new_x + x
                 neigh_y = new_y + y
-                valid_position = (neigh_x >= 0 && neigh_x < 50 && neigh_y >= 0 && neigh_y < 50)
+                valid_position = (neigh_x >= 0 && neigh_x < @width && neigh_y >= 0 && neigh_y < @height)
                 if valid_position
 					if @field[neigh_x][neigh_y].is_alive
 						if new_x == 0 && new_y == 0

@@ -1,8 +1,8 @@
 class Game_window < Gosu::Window
     def initialize(interval)
-        super(500,500)
+        super(700,700)
         @timer = Timer.new(interval)
-        @field = Field.new(50, 50)
+        @field = Field.new(70, 70)
         self.caption = "Conway's Game of Life"
         @game_state = "paused"
     end

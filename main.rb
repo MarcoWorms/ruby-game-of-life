@@ -1,5 +1,6 @@
 require 'gosu'
 
+require_relative 'images'
 require_relative 'game_window'
 require_relative 'field'
 require_relative 'timer'

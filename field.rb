@@ -7,55 +7,65 @@ class Field
     	@height = height
     	@size_x = @width - 1
     	@size_y = @height - 1
-        cell_alive_image = Gosu::Image.new("live_cell.png")
-        cell_dead_image = Gosu::Image.new("dead_cell.png")
-        @field = Array.new(@width) { Array.new(@height) { Cell.new(cell_alive_image, cell_dead_image) } }
+        @field = make_2d_array_with_cells
     end
 
-    def evaluate_next_generation
-    	for x in 0..@size_x
-    		for y in 0..@size_y
-    			cell = @field[x][y]
-
-    			live_neighbors = get_live_neighbors(x, y)
-
-    			if cell.is_alive
-	    			if live_neighbors <= 1
-	    				cell.is_alive_again = false
-	    			elsif live_neighbors == 2 || live_neighbors == 3
-	    				cell.is_alive_again = true
-	    			elsif live_neighbors > 3
-	    				cell.is_alive_again = false
-	    			end
-	    		else
-	    			if live_neighbors == 3
-	    				cell.is_alive_again = true
-	    			end
-	    		end
-
-    		end
-    	end
+    def make_2d_array_with_cells
+        Array.new(@width) {
+            Array.new(@height) {
+                Cell.new(Images::Live_cell, Images::Dead_cell)
+            }
+        }
     end
 
-    def update_generation
+    def each_cell
         for x in 0..@size_x
             for y in 0..@size_y
                 cell = @field[x][y]
-                cell.is_alive = cell.is_alive_again
+                yield cell, x, y
             end
+        end
+    end
+
+    def evaluate_next_generation
+        self.each_cell do |cell, x ,y|
+
+    		live_neighbors = get_live_neighbors(x, y)
+
+    		if cell.is_alive
+    			if live_neighbors <= 1
+    				cell.is_alive_again = false
+    			elsif live_neighbors == 2 || live_neighbors == 3
+    				cell.is_alive_again = true
+    			elsif live_neighbors > 3
+    				cell.is_alive_again = false
+    			end
+    		else
+    			if live_neighbors == 3
+    				cell.is_alive_again = true
+    			end
+    		end
+
+        end
+    end
+
+    def update_generation
+        self.each_cell do |cell|
+                cell.is_alive = cell.is_alive_again
         end
     end
 
     def get_live_neighbors(x, y)
 		live_neighbors = 0
-		for new_x in -1..1
-			for new_y in -1..1
-                neigh_x = new_x + x
-                neigh_y = new_y + y
-                valid_position = (neigh_x >= 0 && neigh_x < @width && neigh_y >= 0 && neigh_y < @height)
+		for delta_x in -1..1
+			for delta_y in -1..1
+                neighbor_x = delta_x + x
+                neighbor_y = delta_y + y
+                valid_position = (neighbor_x >= 0 && neighbor_x < @width && neighbor_y >= 0 && neighbor_y < @height)
                 if valid_position
-					if @field[neigh_x][neigh_y].is_alive
-						if new_x == 0 && new_y == 0
+                    neighbor = @field[neighbor_x][neighbor_y]
+					if neighbor.is_alive
+						if delta_x == 0 && delta_y == 0
 							next
 						end
 						live_neighbors += 1
@@ -73,7 +83,6 @@ class Field
         if cell_clicked.is_alive
             cell_clicked.is_alive = false
             cell_clicked.is_alive_again = false
-
         else
             cell_clicked.is_alive = true
             cell_clicked.is_alive_again = true
@@ -81,13 +90,9 @@ class Field
     end
 
     def draw
-    	for x in 0..@size_x
-    		for y in 0..@size_y
-    			cell = @field[x][y]
+    	self.each_cell do |cell, x, y|
     			cell.draw(x,y)
-    		end
     	end
     end
-
 
 end

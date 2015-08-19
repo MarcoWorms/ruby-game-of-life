@@ -1,6 +1,8 @@
 ###**Game of Life**
 To run on windows just open "Game of Life.exe"
 
+If it fails, take the images from "assets" and put them in the root directory of the game
+
 To run on ruby just do the following:
 
  - ruby main.rb

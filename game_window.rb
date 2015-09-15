@@ -34,12 +34,11 @@ class Game_window < Gosu::Window
         when Gosu::MsLeft
             @field.click(self.mouse_x, self.mouse_y)
 
-
         end
 
     end
 
     def needs_cursor?
-        true
+        return true
     end
 end
